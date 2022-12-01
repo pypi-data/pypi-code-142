@@ -1,0 +1,9 @@
+import typing
+
+
+class UnitOfWork(typing.Protocol):
+    async def begin(self): ...
+
+    async def commit(self): ...
+
+    async def rollback(self): ...
