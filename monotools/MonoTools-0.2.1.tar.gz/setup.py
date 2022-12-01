@@ -1,0 +1,73 @@
+from setuptools import setup
+import setuptools
+
+with open("README.md", "r", encoding="utf-8") as fh:
+    long_description = fh.read()
+
+extrafiles =['data/tables/GKSPCPapTable1_Final.txt.gz',
+             'data/tables/BolMag_interpolations.models',
+             'data/tables/Cheops_Quad_LDs.txt',
+             'data/tables/KeplerLDlaws.txt',
+             'data/tables/tess_lc_locations.csv',
+             'data/tables/GKSPCPapTable2_Final.txt.gz',
+             'data/tables/logprob_array_kip.txt.gz',
+             'data/tables/logprob_array_flat.txt.gz',
+             'data/tables/emarg_array_flat.txt.gz',
+             'data/tables/tessLDs.txt',
+             'data/tables/emarg_array_vve.txt.gz',
+             'data/tables/emarg_array_kip.txt.gz',
+             'data/tables/interpolated_functions_for_vcirc.pkl',
+             'data/tables/tces_per_cadence.txt.gz',
+             'data/tables/logprob_array_vve.txt.gz',
+             'data/tables/LogMePriorFromRe.txt',
+             'data/tables/Cheops_Quad_LDs_AllFeHs.txt',
+             'tests/test_fit.py']
+
+setuptools.setup(
+    name='MonoTools',
+    version='0.2.1',
+    description='A package for detecting, vetting and modelling transiting exoplanets on uncertain periods',
+    url='https://github.com/hposborn/MonoTools',
+    author='Hugh P. Osborn',
+    author_email='hugh.osborn@space.unibe.ch',
+    long_description=long_description,
+    long_description_content_type="text/markdown",
+    license='BSD 2-clause',
+    project_urls={
+        "Bug Tracker": "https://github.com/hposborn/MonoTools/issues",
+    },
+    packages=setuptools.find_packages(),
+    package_data={'MonoTools': extrafiles},
+    install_requires=['matplotlib',
+                      'numpy==1.22',
+                      'pandas',
+                      'scipy',
+                      'astropy',
+                      'astroquery',
+                      'batman-package',
+                      'lightkurve==1.11.0',
+                      'arviz==0.11',
+                      'pymc3==3.8',
+					  'pymc3_ext',
+                      'exoplanet',
+                      'celerite2',
+                      'requests',
+                      'urllib3',
+                      'lxml',
+                      'httplib2',
+                      'h5py',
+                      'bokeh',
+                      'corner',
+                      'transitleastsquares',
+                      'seaborn',
+                      'iteround',
+                      'sphinx==4.3.1',
+                      'nbsphinx',
+                      'myst_parser',
+                      'sphinx_rtd_theme'
+                      ],
+    classifiers=[
+        'Development Status :: 1 - Planning',
+        'Intended Audience :: Science/Research',
+    ],
+)
