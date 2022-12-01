@@ -1,0 +1,1 @@
+from trail_multiply.multiplication import Multiplication
