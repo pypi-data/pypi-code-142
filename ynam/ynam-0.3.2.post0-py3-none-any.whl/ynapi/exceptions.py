@@ -1,0 +1,2 @@
+class YNABUnauthorized(Exception):
+    pass
