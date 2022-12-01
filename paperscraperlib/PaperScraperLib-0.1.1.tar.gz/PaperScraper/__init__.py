@@ -1,0 +1,1 @@
+from PaperScraper.test_object import Multiplication
