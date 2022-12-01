@@ -1,0 +1,2 @@
+class EmailClientInitException(Exception):
+    pass
