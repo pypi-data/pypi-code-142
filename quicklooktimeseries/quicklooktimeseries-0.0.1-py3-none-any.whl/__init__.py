@@ -1,0 +1,1 @@
+from quicklook_time_series import quicklook
