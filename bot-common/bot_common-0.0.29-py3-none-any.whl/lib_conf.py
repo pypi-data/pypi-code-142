@@ -1,0 +1,8 @@
+flow_csv_subflow_identifier = 'subflow'
+flow_csv_subflow_delimiter = '|'
+flow_csv_multiple_response_ids_join = '&'
+max_subflow_iterations = 5
+company_configurations_table_name = 'configurations'
+conversational_flow_table_suffix = '_conversational_flow'
+responses_table_suffix = '_responses'
+exceptions_table_name = 'sessions_exceptions'
