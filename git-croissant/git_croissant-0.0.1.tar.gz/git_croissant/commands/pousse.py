@@ -1,0 +1,2 @@
+def pousse():
+    raise NotImplementedError()
