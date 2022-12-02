@@ -1,0 +1,19 @@
+from setuptools import setup, find_packages
+
+# with open("README.md", "r", encoding="utf-8") as f:
+#     long_description = f.read()
+
+setup(
+    name="helloxl",
+    version="0.1.4",
+    description="Pytorch-lightning Code Blocks for NLP",
+    long_description_content_type="text/markdown",
+    license="MIT Licence",
+    url="https://github.com/xulang/test_xl",
+    author="xulang",
+    author_email="1659821119@qq.com",
+    ikeywords=["deep learning", "pytorch", "AI"],
+    python_requires=">=3.8",
+    setup_requires=[],
+    packages=find_packages()
+)
