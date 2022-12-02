@@ -1,0 +1,7 @@
+USER_AGENT_PRODUCT: str = "uHoo"
+USER_AGENT_PRODUCT_VERSION: str = "10.3.1"
+USER_AGENT_SYSTEM_INFORMATION: str = "iPhone;13.3; iOS 14.7.1; Scale/3.00"
+
+APP_VERSION: int = 93
+
+# uHoo/10.3.1 iPhone;13.3; iOS 14.7.1; Scale/3.00
