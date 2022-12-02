@@ -1,0 +1,2 @@
+def tire():
+    raise NotImplementedError()
