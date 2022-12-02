@@ -1,0 +1,109 @@
+from collections import defaultdict
+from dataclasses import dataclass, field
+from typing import Set
+
+import pandas as pd
+
+from hawa.common.data import CommonData
+
+
+@dataclass
+class MhtData(CommonData):
+    test_type: str = 'mht'
+    code_word_list: Set[str] = field(default_factory=lambda: {'mht'})
+
+    # 计算数据
+    scale_student_score: dict = field(default_factory=dict)
+    sub_scale_score: dict = field(default_factory=dict)
+    grade_scale_student_score: dict = field(default_factory=list)
+    grade_sub_scale_score: dict = field(default_factory=dict)
+    grade_special_students: dict = field(default_factory=dict)
+
+    # 计算数据2
+    mht_final_answers: pd.DataFrame = pd.DataFrame()
+    mht_final_scores: pd.DataFrame = pd.DataFrame()
+
+    def _to_count_c_mht_ans_score(self):
+        self.mht_final_answers = self.final_answers.loc[self.final_answers['mht'] != '效度', :]
+        self.mht_final_scores = self.count_final_score(answers=self.mht_final_answers)
+        self.mht_final_scores['score'] = self.mht_final_scores['score'].astype(int)
+
+    def _to_count_d_scale_student_score(self):
+        """学生总量表得分图数据，横轴分数，纵轴人数 （总 及 各年级）"""
+        self.scale_student_score = self._tool_count_student_score(score=self.mht_final_scores)
+
+    def _to_count_e_sub_scale_code_score(self):
+        """在 8 个子量表上的得分图，横轴量表，纵轴分数"""
+        self.sub_scale_score = self._tool_count_sub_code_score(
+            answers=self.mht_final_answers
+        )
+
+    def _to_count_f_grade_student_score(self):
+        """参考 _to_count_c_student_score， 分年级计算"""
+        res = {}
+        for grade, grade_group in self.mht_final_scores.groupby(by='grade'):
+            grade_data = self._tool_count_student_score(score=grade_group)
+            res[grade] = grade_data
+        self.grade_scale_student_score = res
+
+    def _to_count_g_grade_sub_scale_code_score(self):
+        """在 8 个子量表上的得分图，横轴量表，纵轴分数"""
+        res = {}
+        for grade, grade_ans_group in self.mht_final_answers.groupby('grade'):
+            grade_data = self._tool_count_sub_code_score(answers=grade_ans_group)
+            res[grade] = grade_data
+        self.grade_sub_scale_score = res
+
+    def _to_count_h_grade_special_students(self):
+        """计算各年级 某量表超过8分的学生"""
+        res = defaultdict(list)
+        for grade, grade_ans_group in self.mht_final_answers.groupby('grade'):
+            for student_id, student_group in grade_ans_group.groupby('student_id'):
+                student_name = student_group['username'].tolist()[0]
+                res[grade].append(
+                    self._tool_count_sub_code_score(answers=student_group, unit_name=student_name)
+                )
+        self.grade_special_students = res
+
+    # 计算工具
+    def _tool_count_student_score(self, score: pd.DataFrame):
+        data = []
+        handred = set(range(1, 101))
+        for score, row in score.groupby('score'):
+            handred.discard(score)
+            data.append((score, int(row.score.count())))
+        for score in handred:
+            data.append((score, 0))
+        data.sort(key=lambda x: x[0])
+        x_axis, y_axis = [], []
+        for (score, student_count) in data:
+            x_axis.append(score)
+            y_axis.append(student_count)
+
+        return {
+            "name": self.meta_unit.name,
+            "x_axis": x_axis,
+            "y_axis": y_axis
+        }
+
+    def _tool_count_sub_code_score(self, answers: pd.DataFrame, unit_name: str = ''):
+        mht_scores = defaultdict(list)
+        x_axis, y_axis = [], []
+        for (student_id, mht), group in answers.groupby(by=['student_id', 'mht']):
+            if mht == '效度':
+                continue
+            mht_scores[mht].append(group.score.sum())
+        for mht, score_list in mht_scores.items():
+            x_axis.append(mht)
+            y_axis.append(round(float(sum(score_list) / len(score_list)), 1))
+
+        return {
+            "name": unit_name if unit_name else self.meta_unit.name,
+            "x_axis": x_axis,
+            "y_axis": y_axis,
+        }
+
+
+@dataclass
+class MhtWebData(MhtData):
+    pass
