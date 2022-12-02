@@ -1,0 +1,1 @@
+from git_annex_metadata_edit.version import __version__
