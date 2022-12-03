@@ -1,0 +1,35 @@
+import pkg_resources
+import rich_click as click
+from rich.console import Console
+from rich.table import Table
+
+from pycnpj_cpf.core import cpf_or_cnpj_is_valid
+
+click.rich_click.USE_RICH_MARKUP = True
+click.rich_click.USE_MARKDOWN = True
+click.rich_click.SHOW_ARGUMENTS = True
+click.rich_click.GROUP_ARGUMENTS_OPTIONS = True
+click.rich_click.SHOW_METAVARS_COLUMN = True
+click.rich_click.APPEND_METAVARS_HELP = True
+
+
+@click.group()
+@click.version_option(pkg_resources.get_distribution("pycnpj-cpf").version)
+def main():
+    """CNPJ and CPF validator.
+    This cli application validates if the CNPJ/CPF entered is valid.
+    """
+
+
+@main.command()
+@click.option("--value", help="Value to be validated.")
+def validate(value: str) -> bool:
+    table = Table(title="CNPJ and CPF validator")
+    headers = ["CNPJ/CPF", "Is Valid?"]
+    for header in headers:
+        table.add_column(header, style="magenta")
+
+    result = cpf_or_cnpj_is_valid(value)
+    table.add_row(f"{value}", str(result))
+    console = Console()
+    console.print(table)
