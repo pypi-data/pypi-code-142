@@ -1,0 +1,2 @@
+import warnings
+warnings.warn("The project is still in development and is not ready for production use, please see the GitHub repo for more info: https://www.github.com/Kh4lidMD/AlAdhan", UserWarning)
