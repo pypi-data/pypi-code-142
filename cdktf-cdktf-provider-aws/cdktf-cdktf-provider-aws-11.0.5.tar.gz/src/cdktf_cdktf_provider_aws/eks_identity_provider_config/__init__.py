@@ -1,0 +1,1051 @@
+'''
+# `aws_eks_identity_provider_config`
+
+Refer to the Terraform Registory for docs: [`aws_eks_identity_provider_config`](https://www.terraform.io/docs/providers/aws/r/eks_identity_provider_config).
+'''
+import abc
+import builtins
+import datetime
+import enum
+import typing
+
+import jsii
+import publication
+import typing_extensions
+
+from typeguard import check_type
+
+from .._jsii import *
+
+import cdktf
+import constructs
+
+
+class EksIdentityProviderConfig(
+    cdktf.TerraformResource,
+    metaclass=jsii.JSIIMeta,
+    jsii_type="@cdktf/provider-aws.eksIdentityProviderConfig.EksIdentityProviderConfig",
+):
+    '''Represents a {@link https://www.terraform.io/docs/providers/aws/r/eks_identity_provider_config aws_eks_identity_provider_config}.'''
+
+    def __init__(
+        self,
+        scope: constructs.Construct,
+        id_: builtins.str,
+        *,
+        cluster_name: builtins.str,
+        oidc: typing.Union["EksIdentityProviderConfigOidc", typing.Dict[str, typing.Any]],
+        id: typing.Optional[builtins.str] = None,
+        tags: typing.Optional[typing.Mapping[builtins.str, builtins.str]] = None,
+        tags_all: typing.Optional[typing.Mapping[builtins.str, builtins.str]] = None,
+        timeouts: typing.Optional[typing.Union["EksIdentityProviderConfigTimeouts", typing.Dict[str, typing.Any]]] = None,
+        connection: typing.Optional[typing.Union[typing.Union[cdktf.SSHProvisionerConnection, typing.Dict[str, typing.Any]], typing.Union[cdktf.WinrmProvisionerConnection, typing.Dict[str, typing.Any]]]] = None,
+        count: typing.Optional[jsii.Number] = None,
+        depends_on: typing.Optional[typing.Sequence[cdktf.ITerraformDependable]] = None,
+        for_each: typing.Optional[cdktf.ITerraformIterator] = None,
+        lifecycle: typing.Optional[typing.Union[cdktf.TerraformResourceLifecycle, typing.Dict[str, typing.Any]]] = None,
+        provider: typing.Optional[cdktf.TerraformProvider] = None,
+        provisioners: typing.Optional[typing.Sequence[typing.Union[typing.Union[cdktf.FileProvisioner, typing.Dict[str, typing.Any]], typing.Union[cdktf.LocalExecProvisioner, typing.Dict[str, typing.Any]], typing.Union[cdktf.RemoteExecProvisioner, typing.Dict[str, typing.Any]]]]] = None,
+    ) -> None:
+        '''Create a new {@link https://www.terraform.io/docs/providers/aws/r/eks_identity_provider_config aws_eks_identity_provider_config} Resource.
+
+        :param scope: The scope in which to define this construct.
+        :param id_: The scoped construct ID. Must be unique amongst siblings in the same scope
+        :param cluster_name: Docs at Terraform Registry: {@link https://www.terraform.io/docs/providers/aws/r/eks_identity_provider_config#cluster_name EksIdentityProviderConfig#cluster_name}.
+        :param oidc: oidc block. Docs at Terraform Registry: {@link https://www.terraform.io/docs/providers/aws/r/eks_identity_provider_config#oidc EksIdentityProviderConfig#oidc}
+        :param id: Docs at Terraform Registry: {@link https://www.terraform.io/docs/providers/aws/r/eks_identity_provider_config#id EksIdentityProviderConfig#id}. Please be aware that the id field is automatically added to all resources in Terraform providers using a Terraform provider SDK version below 2. If you experience problems setting this value it might not be settable. Please take a look at the provider documentation to ensure it should be settable.
+        :param tags: Docs at Terraform Registry: {@link https://www.terraform.io/docs/providers/aws/r/eks_identity_provider_config#tags EksIdentityProviderConfig#tags}.
+        :param tags_all: Docs at Terraform Registry: {@link https://www.terraform.io/docs/providers/aws/r/eks_identity_provider_config#tags_all EksIdentityProviderConfig#tags_all}.
+        :param timeouts: timeouts block. Docs at Terraform Registry: {@link https://www.terraform.io/docs/providers/aws/r/eks_identity_provider_config#timeouts EksIdentityProviderConfig#timeouts}
+        :param connection: 
+        :param count: 
+        :param depends_on: 
+        :param for_each: 
+        :param lifecycle: 
+        :param provider: 
+        :param provisioners: 
+        '''
+        if __debug__:
+            def stub(
+                scope: constructs.Construct,
+                id_: builtins.str,
+                *,
+                cluster_name: builtins.str,
+                oidc: typing.Union[EksIdentityProviderConfigOidc, typing.Dict[str, typing.Any]],
+                id: typing.Optional[builtins.str] = None,
+                tags: typing.Optional[typing.Mapping[builtins.str, builtins.str]] = None,
+                tags_all: typing.Optional[typing.Mapping[builtins.str, builtins.str]] = None,
+                timeouts: typing.Optional[typing.Union[EksIdentityProviderConfigTimeouts, typing.Dict[str, typing.Any]]] = None,
+                connection: typing.Optional[typing.Union[typing.Union[cdktf.SSHProvisionerConnection, typing.Dict[str, typing.Any]], typing.Union[cdktf.WinrmProvisionerConnection, typing.Dict[str, typing.Any]]]] = None,
+                count: typing.Optional[jsii.Number] = None,
+                depends_on: typing.Optional[typing.Sequence[cdktf.ITerraformDependable]] = None,
+                for_each: typing.Optional[cdktf.ITerraformIterator] = None,
+                lifecycle: typing.Optional[typing.Union[cdktf.TerraformResourceLifecycle, typing.Dict[str, typing.Any]]] = None,
+                provider: typing.Optional[cdktf.TerraformProvider] = None,
+                provisioners: typing.Optional[typing.Sequence[typing.Union[typing.Union[cdktf.FileProvisioner, typing.Dict[str, typing.Any]], typing.Union[cdktf.LocalExecProvisioner, typing.Dict[str, typing.Any]], typing.Union[cdktf.RemoteExecProvisioner, typing.Dict[str, typing.Any]]]]] = None,
+            ) -> None:
+                ...
+            type_hints = typing.get_type_hints(stub)
+            check_type(argname="argument scope", value=scope, expected_type=type_hints["scope"])
+            check_type(argname="argument id_", value=id_, expected_type=type_hints["id_"])
+        config = EksIdentityProviderConfigConfig(
+            cluster_name=cluster_name,
+            oidc=oidc,
+            id=id,
+            tags=tags,
+            tags_all=tags_all,
+            timeouts=timeouts,
+            connection=connection,
+            count=count,
+            depends_on=depends_on,
+            for_each=for_each,
+            lifecycle=lifecycle,
+            provider=provider,
+            provisioners=provisioners,
+        )
+
+        jsii.create(self.__class__, self, [scope, id_, config])
+
+    @jsii.member(jsii_name="putOidc")
+    def put_oidc(
+        self,
+        *,
+        client_id: builtins.str,
+        identity_provider_config_name: builtins.str,
+        issuer_url: builtins.str,
+        groups_claim: typing.Optional[builtins.str] = None,
+        groups_prefix: typing.Optional[builtins.str] = None,
+        required_claims: typing.Optional[typing.Mapping[builtins.str, builtins.str]] = None,
+        username_claim: typing.Optional[builtins.str] = None,
+        username_prefix: typing.Optional[builtins.str] = None,
+    ) -> None:
+        '''
+        :param client_id: Docs at Terraform Registry: {@link https://www.terraform.io/docs/providers/aws/r/eks_identity_provider_config#client_id EksIdentityProviderConfig#client_id}.
+        :param identity_provider_config_name: Docs at Terraform Registry: {@link https://www.terraform.io/docs/providers/aws/r/eks_identity_provider_config#identity_provider_config_name EksIdentityProviderConfig#identity_provider_config_name}.
+        :param issuer_url: Docs at Terraform Registry: {@link https://www.terraform.io/docs/providers/aws/r/eks_identity_provider_config#issuer_url EksIdentityProviderConfig#issuer_url}.
+        :param groups_claim: Docs at Terraform Registry: {@link https://www.terraform.io/docs/providers/aws/r/eks_identity_provider_config#groups_claim EksIdentityProviderConfig#groups_claim}.
+        :param groups_prefix: Docs at Terraform Registry: {@link https://www.terraform.io/docs/providers/aws/r/eks_identity_provider_config#groups_prefix EksIdentityProviderConfig#groups_prefix}.
+        :param required_claims: Docs at Terraform Registry: {@link https://www.terraform.io/docs/providers/aws/r/eks_identity_provider_config#required_claims EksIdentityProviderConfig#required_claims}.
+        :param username_claim: Docs at Terraform Registry: {@link https://www.terraform.io/docs/providers/aws/r/eks_identity_provider_config#username_claim EksIdentityProviderConfig#username_claim}.
+        :param username_prefix: Docs at Terraform Registry: {@link https://www.terraform.io/docs/providers/aws/r/eks_identity_provider_config#username_prefix EksIdentityProviderConfig#username_prefix}.
+        '''
+        value = EksIdentityProviderConfigOidc(
+            client_id=client_id,
+            identity_provider_config_name=identity_provider_config_name,
+            issuer_url=issuer_url,
+            groups_claim=groups_claim,
+            groups_prefix=groups_prefix,
+            required_claims=required_claims,
+            username_claim=username_claim,
+            username_prefix=username_prefix,
+        )
+
+        return typing.cast(None, jsii.invoke(self, "putOidc", [value]))
+
+    @jsii.member(jsii_name="putTimeouts")
+    def put_timeouts(
+        self,
+        *,
+        create: typing.Optional[builtins.str] = None,
+        delete: typing.Optional[builtins.str] = None,
+    ) -> None:
+        '''
+        :param create: Docs at Terraform Registry: {@link https://www.terraform.io/docs/providers/aws/r/eks_identity_provider_config#create EksIdentityProviderConfig#create}.
+        :param delete: Docs at Terraform Registry: {@link https://www.terraform.io/docs/providers/aws/r/eks_identity_provider_config#delete EksIdentityProviderConfig#delete}.
+        '''
+        value = EksIdentityProviderConfigTimeouts(create=create, delete=delete)
+
+        return typing.cast(None, jsii.invoke(self, "putTimeouts", [value]))
+
+    @jsii.member(jsii_name="resetId")
+    def reset_id(self) -> None:
+        return typing.cast(None, jsii.invoke(self, "resetId", []))
+
+    @jsii.member(jsii_name="resetTags")
+    def reset_tags(self) -> None:
+        return typing.cast(None, jsii.invoke(self, "resetTags", []))
+
+    @jsii.member(jsii_name="resetTagsAll")
+    def reset_tags_all(self) -> None:
+        return typing.cast(None, jsii.invoke(self, "resetTagsAll", []))
+
+    @jsii.member(jsii_name="resetTimeouts")
+    def reset_timeouts(self) -> None:
+        return typing.cast(None, jsii.invoke(self, "resetTimeouts", []))
+
+    @jsii.member(jsii_name="synthesizeAttributes")
+    def _synthesize_attributes(self) -> typing.Mapping[builtins.str, typing.Any]:
+        return typing.cast(typing.Mapping[builtins.str, typing.Any], jsii.invoke(self, "synthesizeAttributes", []))
+
+    @jsii.python.classproperty
+    @jsii.member(jsii_name="tfResourceType")
+    def TF_RESOURCE_TYPE(cls) -> builtins.str:
+        return typing.cast(builtins.str, jsii.sget(cls, "tfResourceType"))
+
+    @builtins.property
+    @jsii.member(jsii_name="arn")
+    def arn(self) -> builtins.str:
+        return typing.cast(builtins.str, jsii.get(self, "arn"))
+
+    @builtins.property
+    @jsii.member(jsii_name="oidc")
+    def oidc(self) -> "EksIdentityProviderConfigOidcOutputReference":
+        return typing.cast("EksIdentityProviderConfigOidcOutputReference", jsii.get(self, "oidc"))
+
+    @builtins.property
+    @jsii.member(jsii_name="status")
+    def status(self) -> builtins.str:
+        return typing.cast(builtins.str, jsii.get(self, "status"))
+
+    @builtins.property
+    @jsii.member(jsii_name="timeouts")
+    def timeouts(self) -> "EksIdentityProviderConfigTimeoutsOutputReference":
+        return typing.cast("EksIdentityProviderConfigTimeoutsOutputReference", jsii.get(self, "timeouts"))
+
+    @builtins.property
+    @jsii.member(jsii_name="clusterNameInput")
+    def cluster_name_input(self) -> typing.Optional[builtins.str]:
+        return typing.cast(typing.Optional[builtins.str], jsii.get(self, "clusterNameInput"))
+
+    @builtins.property
+    @jsii.member(jsii_name="idInput")
+    def id_input(self) -> typing.Optional[builtins.str]:
+        return typing.cast(typing.Optional[builtins.str], jsii.get(self, "idInput"))
+
+    @builtins.property
+    @jsii.member(jsii_name="oidcInput")
+    def oidc_input(self) -> typing.Optional["EksIdentityProviderConfigOidc"]:
+        return typing.cast(typing.Optional["EksIdentityProviderConfigOidc"], jsii.get(self, "oidcInput"))
+
+    @builtins.property
+    @jsii.member(jsii_name="tagsAllInput")
+    def tags_all_input(
+        self,
+    ) -> typing.Optional[typing.Mapping[builtins.str, builtins.str]]:
+        return typing.cast(typing.Optional[typing.Mapping[builtins.str, builtins.str]], jsii.get(self, "tagsAllInput"))
+
+    @builtins.property
+    @jsii.member(jsii_name="tagsInput")
+    def tags_input(self) -> typing.Optional[typing.Mapping[builtins.str, builtins.str]]:
+        return typing.cast(typing.Optional[typing.Mapping[builtins.str, builtins.str]], jsii.get(self, "tagsInput"))
+
+    @builtins.property
+    @jsii.member(jsii_name="timeoutsInput")
+    def timeouts_input(
+        self,
+    ) -> typing.Optional[typing.Union["EksIdentityProviderConfigTimeouts", cdktf.IResolvable]]:
+        return typing.cast(typing.Optional[typing.Union["EksIdentityProviderConfigTimeouts", cdktf.IResolvable]], jsii.get(self, "timeoutsInput"))
+
+    @builtins.property
+    @jsii.member(jsii_name="clusterName")
+    def cluster_name(self) -> builtins.str:
+        return typing.cast(builtins.str, jsii.get(self, "clusterName"))
+
+    @cluster_name.setter
+    def cluster_name(self, value: builtins.str) -> None:
+        if __debug__:
+            def stub(value: builtins.str) -> None:
+                ...
+            type_hints = typing.get_type_hints(stub)
+            check_type(argname="argument value", value=value, expected_type=type_hints["value"])
+        jsii.set(self, "clusterName", value)
+
+    @builtins.property
+    @jsii.member(jsii_name="id")
+    def id(self) -> builtins.str:
+        return typing.cast(builtins.str, jsii.get(self, "id"))
+
+    @id.setter
+    def id(self, value: builtins.str) -> None:
+        if __debug__:
+            def stub(value: builtins.str) -> None:
+                ...
+            type_hints = typing.get_type_hints(stub)
+            check_type(argname="argument value", value=value, expected_type=type_hints["value"])
+        jsii.set(self, "id", value)
+
+    @builtins.property
+    @jsii.member(jsii_name="tags")
+    def tags(self) -> typing.Mapping[builtins.str, builtins.str]:
+        return typing.cast(typing.Mapping[builtins.str, builtins.str], jsii.get(self, "tags"))
+
+    @tags.setter
+    def tags(self, value: typing.Mapping[builtins.str, builtins.str]) -> None:
+        if __debug__:
+            def stub(value: typing.Mapping[builtins.str, builtins.str]) -> None:
+                ...
+            type_hints = typing.get_type_hints(stub)
+            check_type(argname="argument value", value=value, expected_type=type_hints["value"])
+        jsii.set(self, "tags", value)
+
+    @builtins.property
+    @jsii.member(jsii_name="tagsAll")
+    def tags_all(self) -> typing.Mapping[builtins.str, builtins.str]:
+        return typing.cast(typing.Mapping[builtins.str, builtins.str], jsii.get(self, "tagsAll"))
+
+    @tags_all.setter
+    def tags_all(self, value: typing.Mapping[builtins.str, builtins.str]) -> None:
+        if __debug__:
+            def stub(value: typing.Mapping[builtins.str, builtins.str]) -> None:
+                ...
+            type_hints = typing.get_type_hints(stub)
+            check_type(argname="argument value", value=value, expected_type=type_hints["value"])
+        jsii.set(self, "tagsAll", value)
+
+
+@jsii.data_type(
+    jsii_type="@cdktf/provider-aws.eksIdentityProviderConfig.EksIdentityProviderConfigConfig",
+    jsii_struct_bases=[cdktf.TerraformMetaArguments],
+    name_mapping={
+        "connection": "connection",
+        "count": "count",
+        "depends_on": "dependsOn",
+        "for_each": "forEach",
+        "lifecycle": "lifecycle",
+        "provider": "provider",
+        "provisioners": "provisioners",
+        "cluster_name": "clusterName",
+        "oidc": "oidc",
+        "id": "id",
+        "tags": "tags",
+        "tags_all": "tagsAll",
+        "timeouts": "timeouts",
+    },
+)
+class EksIdentityProviderConfigConfig(cdktf.TerraformMetaArguments):
+    def __init__(
+        self,
+        *,
+        connection: typing.Optional[typing.Union[typing.Union[cdktf.SSHProvisionerConnection, typing.Dict[str, typing.Any]], typing.Union[cdktf.WinrmProvisionerConnection, typing.Dict[str, typing.Any]]]] = None,
+        count: typing.Optional[jsii.Number] = None,
+        depends_on: typing.Optional[typing.Sequence[cdktf.ITerraformDependable]] = None,
+        for_each: typing.Optional[cdktf.ITerraformIterator] = None,
+        lifecycle: typing.Optional[typing.Union[cdktf.TerraformResourceLifecycle, typing.Dict[str, typing.Any]]] = None,
+        provider: typing.Optional[cdktf.TerraformProvider] = None,
+        provisioners: typing.Optional[typing.Sequence[typing.Union[typing.Union[cdktf.FileProvisioner, typing.Dict[str, typing.Any]], typing.Union[cdktf.LocalExecProvisioner, typing.Dict[str, typing.Any]], typing.Union[cdktf.RemoteExecProvisioner, typing.Dict[str, typing.Any]]]]] = None,
+        cluster_name: builtins.str,
+        oidc: typing.Union["EksIdentityProviderConfigOidc", typing.Dict[str, typing.Any]],
+        id: typing.Optional[builtins.str] = None,
+        tags: typing.Optional[typing.Mapping[builtins.str, builtins.str]] = None,
+        tags_all: typing.Optional[typing.Mapping[builtins.str, builtins.str]] = None,
+        timeouts: typing.Optional[typing.Union["EksIdentityProviderConfigTimeouts", typing.Dict[str, typing.Any]]] = None,
+    ) -> None:
+        '''
+        :param connection: 
+        :param count: 
+        :param depends_on: 
+        :param for_each: 
+        :param lifecycle: 
+        :param provider: 
+        :param provisioners: 
+        :param cluster_name: Docs at Terraform Registry: {@link https://www.terraform.io/docs/providers/aws/r/eks_identity_provider_config#cluster_name EksIdentityProviderConfig#cluster_name}.
+        :param oidc: oidc block. Docs at Terraform Registry: {@link https://www.terraform.io/docs/providers/aws/r/eks_identity_provider_config#oidc EksIdentityProviderConfig#oidc}
+        :param id: Docs at Terraform Registry: {@link https://www.terraform.io/docs/providers/aws/r/eks_identity_provider_config#id EksIdentityProviderConfig#id}. Please be aware that the id field is automatically added to all resources in Terraform providers using a Terraform provider SDK version below 2. If you experience problems setting this value it might not be settable. Please take a look at the provider documentation to ensure it should be settable.
+        :param tags: Docs at Terraform Registry: {@link https://www.terraform.io/docs/providers/aws/r/eks_identity_provider_config#tags EksIdentityProviderConfig#tags}.
+        :param tags_all: Docs at Terraform Registry: {@link https://www.terraform.io/docs/providers/aws/r/eks_identity_provider_config#tags_all EksIdentityProviderConfig#tags_all}.
+        :param timeouts: timeouts block. Docs at Terraform Registry: {@link https://www.terraform.io/docs/providers/aws/r/eks_identity_provider_config#timeouts EksIdentityProviderConfig#timeouts}
+        '''
+        if isinstance(lifecycle, dict):
+            lifecycle = cdktf.TerraformResourceLifecycle(**lifecycle)
+        if isinstance(oidc, dict):
+            oidc = EksIdentityProviderConfigOidc(**oidc)
+        if isinstance(timeouts, dict):
+            timeouts = EksIdentityProviderConfigTimeouts(**timeouts)
+        if __debug__:
+            def stub(
+                *,
+                connection: typing.Optional[typing.Union[typing.Union[cdktf.SSHProvisionerConnection, typing.Dict[str, typing.Any]], typing.Union[cdktf.WinrmProvisionerConnection, typing.Dict[str, typing.Any]]]] = None,
+                count: typing.Optional[jsii.Number] = None,
+                depends_on: typing.Optional[typing.Sequence[cdktf.ITerraformDependable]] = None,
+                for_each: typing.Optional[cdktf.ITerraformIterator] = None,
+                lifecycle: typing.Optional[typing.Union[cdktf.TerraformResourceLifecycle, typing.Dict[str, typing.Any]]] = None,
+                provider: typing.Optional[cdktf.TerraformProvider] = None,
+                provisioners: typing.Optional[typing.Sequence[typing.Union[typing.Union[cdktf.FileProvisioner, typing.Dict[str, typing.Any]], typing.Union[cdktf.LocalExecProvisioner, typing.Dict[str, typing.Any]], typing.Union[cdktf.RemoteExecProvisioner, typing.Dict[str, typing.Any]]]]] = None,
+                cluster_name: builtins.str,
+                oidc: typing.Union[EksIdentityProviderConfigOidc, typing.Dict[str, typing.Any]],
+                id: typing.Optional[builtins.str] = None,
+                tags: typing.Optional[typing.Mapping[builtins.str, builtins.str]] = None,
+                tags_all: typing.Optional[typing.Mapping[builtins.str, builtins.str]] = None,
+                timeouts: typing.Optional[typing.Union[EksIdentityProviderConfigTimeouts, typing.Dict[str, typing.Any]]] = None,
+            ) -> None:
+                ...
+            type_hints = typing.get_type_hints(stub)
+            check_type(argname="argument connection", value=connection, expected_type=type_hints["connection"])
+            check_type(argname="argument count", value=count, expected_type=type_hints["count"])
+            check_type(argname="argument depends_on", value=depends_on, expected_type=type_hints["depends_on"])
+            check_type(argname="argument for_each", value=for_each, expected_type=type_hints["for_each"])
+            check_type(argname="argument lifecycle", value=lifecycle, expected_type=type_hints["lifecycle"])
+            check_type(argname="argument provider", value=provider, expected_type=type_hints["provider"])
+            check_type(argname="argument provisioners", value=provisioners, expected_type=type_hints["provisioners"])
+            check_type(argname="argument cluster_name", value=cluster_name, expected_type=type_hints["cluster_name"])
+            check_type(argname="argument oidc", value=oidc, expected_type=type_hints["oidc"])
+            check_type(argname="argument id", value=id, expected_type=type_hints["id"])
+            check_type(argname="argument tags", value=tags, expected_type=type_hints["tags"])
+            check_type(argname="argument tags_all", value=tags_all, expected_type=type_hints["tags_all"])
+            check_type(argname="argument timeouts", value=timeouts, expected_type=type_hints["timeouts"])
+        self._values: typing.Dict[str, typing.Any] = {
+            "cluster_name": cluster_name,
+            "oidc": oidc,
+        }
+        if connection is not None:
+            self._values["connection"] = connection
+        if count is not None:
+            self._values["count"] = count
+        if depends_on is not None:
+            self._values["depends_on"] = depends_on
+        if for_each is not None:
+            self._values["for_each"] = for_each
+        if lifecycle is not None:
+            self._values["lifecycle"] = lifecycle
+        if provider is not None:
+            self._values["provider"] = provider
+        if provisioners is not None:
+            self._values["provisioners"] = provisioners
+        if id is not None:
+            self._values["id"] = id
+        if tags is not None:
+            self._values["tags"] = tags
+        if tags_all is not None:
+            self._values["tags_all"] = tags_all
+        if timeouts is not None:
+            self._values["timeouts"] = timeouts
+
+    @builtins.property
+    def connection(
+        self,
+    ) -> typing.Optional[typing.Union[cdktf.SSHProvisionerConnection, cdktf.WinrmProvisionerConnection]]:
+        '''
+        :stability: experimental
+        '''
+        result = self._values.get("connection")
+        return typing.cast(typing.Optional[typing.Union[cdktf.SSHProvisionerConnection, cdktf.WinrmProvisionerConnection]], result)
+
+    @builtins.property
+    def count(self) -> typing.Optional[jsii.Number]:
+        '''
+        :stability: experimental
+        '''
+        result = self._values.get("count")
+        return typing.cast(typing.Optional[jsii.Number], result)
+
+    @builtins.property
+    def depends_on(self) -> typing.Optional[typing.List[cdktf.ITerraformDependable]]:
+        '''
+        :stability: experimental
+        '''
+        result = self._values.get("depends_on")
+        return typing.cast(typing.Optional[typing.List[cdktf.ITerraformDependable]], result)
+
+    @builtins.property
+    def for_each(self) -> typing.Optional[cdktf.ITerraformIterator]:
+        '''
+        :stability: experimental
+        '''
+        result = self._values.get("for_each")
+        return typing.cast(typing.Optional[cdktf.ITerraformIterator], result)
+
+    @builtins.property
+    def lifecycle(self) -> typing.Optional[cdktf.TerraformResourceLifecycle]:
+        '''
+        :stability: experimental
+        '''
+        result = self._values.get("lifecycle")
+        return typing.cast(typing.Optional[cdktf.TerraformResourceLifecycle], result)
+
+    @builtins.property
+    def provider(self) -> typing.Optional[cdktf.TerraformProvider]:
+        '''
+        :stability: experimental
+        '''
+        result = self._values.get("provider")
+        return typing.cast(typing.Optional[cdktf.TerraformProvider], result)
+
+    @builtins.property
+    def provisioners(
+        self,
+    ) -> typing.Optional[typing.List[typing.Union[cdktf.FileProvisioner, cdktf.LocalExecProvisioner, cdktf.RemoteExecProvisioner]]]:
+        '''
+        :stability: experimental
+        '''
+        result = self._values.get("provisioners")
+        return typing.cast(typing.Optional[typing.List[typing.Union[cdktf.FileProvisioner, cdktf.LocalExecProvisioner, cdktf.RemoteExecProvisioner]]], result)
+
+    @builtins.property
+    def cluster_name(self) -> builtins.str:
+        '''Docs at Terraform Registry: {@link https://www.terraform.io/docs/providers/aws/r/eks_identity_provider_config#cluster_name EksIdentityProviderConfig#cluster_name}.'''
+        result = self._values.get("cluster_name")
+        assert result is not None, "Required property 'cluster_name' is missing"
+        return typing.cast(builtins.str, result)
+
+    @builtins.property
+    def oidc(self) -> "EksIdentityProviderConfigOidc":
+        '''oidc block.
+
+        Docs at Terraform Registry: {@link https://www.terraform.io/docs/providers/aws/r/eks_identity_provider_config#oidc EksIdentityProviderConfig#oidc}
+        '''
+        result = self._values.get("oidc")
+        assert result is not None, "Required property 'oidc' is missing"
+        return typing.cast("EksIdentityProviderConfigOidc", result)
+
+    @builtins.property
+    def id(self) -> typing.Optional[builtins.str]:
+        '''Docs at Terraform Registry: {@link https://www.terraform.io/docs/providers/aws/r/eks_identity_provider_config#id EksIdentityProviderConfig#id}.
+
+        Please be aware that the id field is automatically added to all resources in Terraform providers using a Terraform provider SDK version below 2.
+        If you experience problems setting this value it might not be settable. Please take a look at the provider documentation to ensure it should be settable.
+        '''
+        result = self._values.get("id")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    @builtins.property
+    def tags(self) -> typing.Optional[typing.Mapping[builtins.str, builtins.str]]:
+        '''Docs at Terraform Registry: {@link https://www.terraform.io/docs/providers/aws/r/eks_identity_provider_config#tags EksIdentityProviderConfig#tags}.'''
+        result = self._values.get("tags")
+        return typing.cast(typing.Optional[typing.Mapping[builtins.str, builtins.str]], result)
+
+    @builtins.property
+    def tags_all(self) -> typing.Optional[typing.Mapping[builtins.str, builtins.str]]:
+        '''Docs at Terraform Registry: {@link https://www.terraform.io/docs/providers/aws/r/eks_identity_provider_config#tags_all EksIdentityProviderConfig#tags_all}.'''
+        result = self._values.get("tags_all")
+        return typing.cast(typing.Optional[typing.Mapping[builtins.str, builtins.str]], result)
+
+    @builtins.property
+    def timeouts(self) -> typing.Optional["EksIdentityProviderConfigTimeouts"]:
+        '''timeouts block.
+
+        Docs at Terraform Registry: {@link https://www.terraform.io/docs/providers/aws/r/eks_identity_provider_config#timeouts EksIdentityProviderConfig#timeouts}
+        '''
+        result = self._values.get("timeouts")
+        return typing.cast(typing.Optional["EksIdentityProviderConfigTimeouts"], result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "EksIdentityProviderConfigConfig(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+@jsii.data_type(
+    jsii_type="@cdktf/provider-aws.eksIdentityProviderConfig.EksIdentityProviderConfigOidc",
+    jsii_struct_bases=[],
+    name_mapping={
+        "client_id": "clientId",
+        "identity_provider_config_name": "identityProviderConfigName",
+        "issuer_url": "issuerUrl",
+        "groups_claim": "groupsClaim",
+        "groups_prefix": "groupsPrefix",
+        "required_claims": "requiredClaims",
+        "username_claim": "usernameClaim",
+        "username_prefix": "usernamePrefix",
+    },
+)
+class EksIdentityProviderConfigOidc:
+    def __init__(
+        self,
+        *,
+        client_id: builtins.str,
+        identity_provider_config_name: builtins.str,
+        issuer_url: builtins.str,
+        groups_claim: typing.Optional[builtins.str] = None,
+        groups_prefix: typing.Optional[builtins.str] = None,
+        required_claims: typing.Optional[typing.Mapping[builtins.str, builtins.str]] = None,
+        username_claim: typing.Optional[builtins.str] = None,
+        username_prefix: typing.Optional[builtins.str] = None,
+    ) -> None:
+        '''
+        :param client_id: Docs at Terraform Registry: {@link https://www.terraform.io/docs/providers/aws/r/eks_identity_provider_config#client_id EksIdentityProviderConfig#client_id}.
+        :param identity_provider_config_name: Docs at Terraform Registry: {@link https://www.terraform.io/docs/providers/aws/r/eks_identity_provider_config#identity_provider_config_name EksIdentityProviderConfig#identity_provider_config_name}.
+        :param issuer_url: Docs at Terraform Registry: {@link https://www.terraform.io/docs/providers/aws/r/eks_identity_provider_config#issuer_url EksIdentityProviderConfig#issuer_url}.
+        :param groups_claim: Docs at Terraform Registry: {@link https://www.terraform.io/docs/providers/aws/r/eks_identity_provider_config#groups_claim EksIdentityProviderConfig#groups_claim}.
+        :param groups_prefix: Docs at Terraform Registry: {@link https://www.terraform.io/docs/providers/aws/r/eks_identity_provider_config#groups_prefix EksIdentityProviderConfig#groups_prefix}.
+        :param required_claims: Docs at Terraform Registry: {@link https://www.terraform.io/docs/providers/aws/r/eks_identity_provider_config#required_claims EksIdentityProviderConfig#required_claims}.
+        :param username_claim: Docs at Terraform Registry: {@link https://www.terraform.io/docs/providers/aws/r/eks_identity_provider_config#username_claim EksIdentityProviderConfig#username_claim}.
+        :param username_prefix: Docs at Terraform Registry: {@link https://www.terraform.io/docs/providers/aws/r/eks_identity_provider_config#username_prefix EksIdentityProviderConfig#username_prefix}.
+        '''
+        if __debug__:
+            def stub(
+                *,
+                client_id: builtins.str,
+                identity_provider_config_name: builtins.str,
+                issuer_url: builtins.str,
+                groups_claim: typing.Optional[builtins.str] = None,
+                groups_prefix: typing.Optional[builtins.str] = None,
+                required_claims: typing.Optional[typing.Mapping[builtins.str, builtins.str]] = None,
+                username_claim: typing.Optional[builtins.str] = None,
+                username_prefix: typing.Optional[builtins.str] = None,
+            ) -> None:
+                ...
+            type_hints = typing.get_type_hints(stub)
+            check_type(argname="argument client_id", value=client_id, expected_type=type_hints["client_id"])
+            check_type(argname="argument identity_provider_config_name", value=identity_provider_config_name, expected_type=type_hints["identity_provider_config_name"])
+            check_type(argname="argument issuer_url", value=issuer_url, expected_type=type_hints["issuer_url"])
+            check_type(argname="argument groups_claim", value=groups_claim, expected_type=type_hints["groups_claim"])
+            check_type(argname="argument groups_prefix", value=groups_prefix, expected_type=type_hints["groups_prefix"])
+            check_type(argname="argument required_claims", value=required_claims, expected_type=type_hints["required_claims"])
+            check_type(argname="argument username_claim", value=username_claim, expected_type=type_hints["username_claim"])
+            check_type(argname="argument username_prefix", value=username_prefix, expected_type=type_hints["username_prefix"])
+        self._values: typing.Dict[str, typing.Any] = {
+            "client_id": client_id,
+            "identity_provider_config_name": identity_provider_config_name,
+            "issuer_url": issuer_url,
+        }
+        if groups_claim is not None:
+            self._values["groups_claim"] = groups_claim
+        if groups_prefix is not None:
+            self._values["groups_prefix"] = groups_prefix
+        if required_claims is not None:
+            self._values["required_claims"] = required_claims
+        if username_claim is not None:
+            self._values["username_claim"] = username_claim
+        if username_prefix is not None:
+            self._values["username_prefix"] = username_prefix
+
+    @builtins.property
+    def client_id(self) -> builtins.str:
+        '''Docs at Terraform Registry: {@link https://www.terraform.io/docs/providers/aws/r/eks_identity_provider_config#client_id EksIdentityProviderConfig#client_id}.'''
+        result = self._values.get("client_id")
+        assert result is not None, "Required property 'client_id' is missing"
+        return typing.cast(builtins.str, result)
+
+    @builtins.property
+    def identity_provider_config_name(self) -> builtins.str:
+        '''Docs at Terraform Registry: {@link https://www.terraform.io/docs/providers/aws/r/eks_identity_provider_config#identity_provider_config_name EksIdentityProviderConfig#identity_provider_config_name}.'''
+        result = self._values.get("identity_provider_config_name")
+        assert result is not None, "Required property 'identity_provider_config_name' is missing"
+        return typing.cast(builtins.str, result)
+
+    @builtins.property
+    def issuer_url(self) -> builtins.str:
+        '''Docs at Terraform Registry: {@link https://www.terraform.io/docs/providers/aws/r/eks_identity_provider_config#issuer_url EksIdentityProviderConfig#issuer_url}.'''
+        result = self._values.get("issuer_url")
+        assert result is not None, "Required property 'issuer_url' is missing"
+        return typing.cast(builtins.str, result)
+
+    @builtins.property
+    def groups_claim(self) -> typing.Optional[builtins.str]:
+        '''Docs at Terraform Registry: {@link https://www.terraform.io/docs/providers/aws/r/eks_identity_provider_config#groups_claim EksIdentityProviderConfig#groups_claim}.'''
+        result = self._values.get("groups_claim")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    @builtins.property
+    def groups_prefix(self) -> typing.Optional[builtins.str]:
+        '''Docs at Terraform Registry: {@link https://www.terraform.io/docs/providers/aws/r/eks_identity_provider_config#groups_prefix EksIdentityProviderConfig#groups_prefix}.'''
+        result = self._values.get("groups_prefix")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    @builtins.property
+    def required_claims(
+        self,
+    ) -> typing.Optional[typing.Mapping[builtins.str, builtins.str]]:
+        '''Docs at Terraform Registry: {@link https://www.terraform.io/docs/providers/aws/r/eks_identity_provider_config#required_claims EksIdentityProviderConfig#required_claims}.'''
+        result = self._values.get("required_claims")
+        return typing.cast(typing.Optional[typing.Mapping[builtins.str, builtins.str]], result)
+
+    @builtins.property
+    def username_claim(self) -> typing.Optional[builtins.str]:
+        '''Docs at Terraform Registry: {@link https://www.terraform.io/docs/providers/aws/r/eks_identity_provider_config#username_claim EksIdentityProviderConfig#username_claim}.'''
+        result = self._values.get("username_claim")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    @builtins.property
+    def username_prefix(self) -> typing.Optional[builtins.str]:
+        '''Docs at Terraform Registry: {@link https://www.terraform.io/docs/providers/aws/r/eks_identity_provider_config#username_prefix EksIdentityProviderConfig#username_prefix}.'''
+        result = self._values.get("username_prefix")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "EksIdentityProviderConfigOidc(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+class EksIdentityProviderConfigOidcOutputReference(
+    cdktf.ComplexObject,
+    metaclass=jsii.JSIIMeta,
+    jsii_type="@cdktf/provider-aws.eksIdentityProviderConfig.EksIdentityProviderConfigOidcOutputReference",
+):
+    def __init__(
+        self,
+        terraform_resource: cdktf.IInterpolatingParent,
+        terraform_attribute: builtins.str,
+    ) -> None:
+        '''
+        :param terraform_resource: The parent resource.
+        :param terraform_attribute: The attribute on the parent resource this class is referencing.
+        '''
+        if __debug__:
+            def stub(
+                terraform_resource: cdktf.IInterpolatingParent,
+                terraform_attribute: builtins.str,
+            ) -> None:
+                ...
+            type_hints = typing.get_type_hints(stub)
+            check_type(argname="argument terraform_resource", value=terraform_resource, expected_type=type_hints["terraform_resource"])
+            check_type(argname="argument terraform_attribute", value=terraform_attribute, expected_type=type_hints["terraform_attribute"])
+        jsii.create(self.__class__, self, [terraform_resource, terraform_attribute])
+
+    @jsii.member(jsii_name="resetGroupsClaim")
+    def reset_groups_claim(self) -> None:
+        return typing.cast(None, jsii.invoke(self, "resetGroupsClaim", []))
+
+    @jsii.member(jsii_name="resetGroupsPrefix")
+    def reset_groups_prefix(self) -> None:
+        return typing.cast(None, jsii.invoke(self, "resetGroupsPrefix", []))
+
+    @jsii.member(jsii_name="resetRequiredClaims")
+    def reset_required_claims(self) -> None:
+        return typing.cast(None, jsii.invoke(self, "resetRequiredClaims", []))
+
+    @jsii.member(jsii_name="resetUsernameClaim")
+    def reset_username_claim(self) -> None:
+        return typing.cast(None, jsii.invoke(self, "resetUsernameClaim", []))
+
+    @jsii.member(jsii_name="resetUsernamePrefix")
+    def reset_username_prefix(self) -> None:
+        return typing.cast(None, jsii.invoke(self, "resetUsernamePrefix", []))
+
+    @builtins.property
+    @jsii.member(jsii_name="clientIdInput")
+    def client_id_input(self) -> typing.Optional[builtins.str]:
+        return typing.cast(typing.Optional[builtins.str], jsii.get(self, "clientIdInput"))
+
+    @builtins.property
+    @jsii.member(jsii_name="groupsClaimInput")
+    def groups_claim_input(self) -> typing.Optional[builtins.str]:
+        return typing.cast(typing.Optional[builtins.str], jsii.get(self, "groupsClaimInput"))
+
+    @builtins.property
+    @jsii.member(jsii_name="groupsPrefixInput")
+    def groups_prefix_input(self) -> typing.Optional[builtins.str]:
+        return typing.cast(typing.Optional[builtins.str], jsii.get(self, "groupsPrefixInput"))
+
+    @builtins.property
+    @jsii.member(jsii_name="identityProviderConfigNameInput")
+    def identity_provider_config_name_input(self) -> typing.Optional[builtins.str]:
+        return typing.cast(typing.Optional[builtins.str], jsii.get(self, "identityProviderConfigNameInput"))
+
+    @builtins.property
+    @jsii.member(jsii_name="issuerUrlInput")
+    def issuer_url_input(self) -> typing.Optional[builtins.str]:
+        return typing.cast(typing.Optional[builtins.str], jsii.get(self, "issuerUrlInput"))
+
+    @builtins.property
+    @jsii.member(jsii_name="requiredClaimsInput")
+    def required_claims_input(
+        self,
+    ) -> typing.Optional[typing.Mapping[builtins.str, builtins.str]]:
+        return typing.cast(typing.Optional[typing.Mapping[builtins.str, builtins.str]], jsii.get(self, "requiredClaimsInput"))
+
+    @builtins.property
+    @jsii.member(jsii_name="usernameClaimInput")
+    def username_claim_input(self) -> typing.Optional[builtins.str]:
+        return typing.cast(typing.Optional[builtins.str], jsii.get(self, "usernameClaimInput"))
+
+    @builtins.property
+    @jsii.member(jsii_name="usernamePrefixInput")
+    def username_prefix_input(self) -> typing.Optional[builtins.str]:
+        return typing.cast(typing.Optional[builtins.str], jsii.get(self, "usernamePrefixInput"))
+
+    @builtins.property
+    @jsii.member(jsii_name="clientId")
+    def client_id(self) -> builtins.str:
+        return typing.cast(builtins.str, jsii.get(self, "clientId"))
+
+    @client_id.setter
+    def client_id(self, value: builtins.str) -> None:
+        if __debug__:
+            def stub(value: builtins.str) -> None:
+                ...
+            type_hints = typing.get_type_hints(stub)
+            check_type(argname="argument value", value=value, expected_type=type_hints["value"])
+        jsii.set(self, "clientId", value)
+
+    @builtins.property
+    @jsii.member(jsii_name="groupsClaim")
+    def groups_claim(self) -> builtins.str:
+        return typing.cast(builtins.str, jsii.get(self, "groupsClaim"))
+
+    @groups_claim.setter
+    def groups_claim(self, value: builtins.str) -> None:
+        if __debug__:
+            def stub(value: builtins.str) -> None:
+                ...
+            type_hints = typing.get_type_hints(stub)
+            check_type(argname="argument value", value=value, expected_type=type_hints["value"])
+        jsii.set(self, "groupsClaim", value)
+
+    @builtins.property
+    @jsii.member(jsii_name="groupsPrefix")
+    def groups_prefix(self) -> builtins.str:
+        return typing.cast(builtins.str, jsii.get(self, "groupsPrefix"))
+
+    @groups_prefix.setter
+    def groups_prefix(self, value: builtins.str) -> None:
+        if __debug__:
+            def stub(value: builtins.str) -> None:
+                ...
+            type_hints = typing.get_type_hints(stub)
+            check_type(argname="argument value", value=value, expected_type=type_hints["value"])
+        jsii.set(self, "groupsPrefix", value)
+
+    @builtins.property
+    @jsii.member(jsii_name="identityProviderConfigName")
+    def identity_provider_config_name(self) -> builtins.str:
+        return typing.cast(builtins.str, jsii.get(self, "identityProviderConfigName"))
+
+    @identity_provider_config_name.setter
+    def identity_provider_config_name(self, value: builtins.str) -> None:
+        if __debug__:
+            def stub(value: builtins.str) -> None:
+                ...
+            type_hints = typing.get_type_hints(stub)
+            check_type(argname="argument value", value=value, expected_type=type_hints["value"])
+        jsii.set(self, "identityProviderConfigName", value)
+
+    @builtins.property
+    @jsii.member(jsii_name="issuerUrl")
+    def issuer_url(self) -> builtins.str:
+        return typing.cast(builtins.str, jsii.get(self, "issuerUrl"))
+
+    @issuer_url.setter
+    def issuer_url(self, value: builtins.str) -> None:
+        if __debug__:
+            def stub(value: builtins.str) -> None:
+                ...
+            type_hints = typing.get_type_hints(stub)
+            check_type(argname="argument value", value=value, expected_type=type_hints["value"])
+        jsii.set(self, "issuerUrl", value)
+
+    @builtins.property
+    @jsii.member(jsii_name="requiredClaims")
+    def required_claims(self) -> typing.Mapping[builtins.str, builtins.str]:
+        return typing.cast(typing.Mapping[builtins.str, builtins.str], jsii.get(self, "requiredClaims"))
+
+    @required_claims.setter
+    def required_claims(
+        self,
+        value: typing.Mapping[builtins.str, builtins.str],
+    ) -> None:
+        if __debug__:
+            def stub(value: typing.Mapping[builtins.str, builtins.str]) -> None:
+                ...
+            type_hints = typing.get_type_hints(stub)
+            check_type(argname="argument value", value=value, expected_type=type_hints["value"])
+        jsii.set(self, "requiredClaims", value)
+
+    @builtins.property
+    @jsii.member(jsii_name="usernameClaim")
+    def username_claim(self) -> builtins.str:
+        return typing.cast(builtins.str, jsii.get(self, "usernameClaim"))
+
+    @username_claim.setter
+    def username_claim(self, value: builtins.str) -> None:
+        if __debug__:
+            def stub(value: builtins.str) -> None:
+                ...
+            type_hints = typing.get_type_hints(stub)
+            check_type(argname="argument value", value=value, expected_type=type_hints["value"])
+        jsii.set(self, "usernameClaim", value)
+
+    @builtins.property
+    @jsii.member(jsii_name="usernamePrefix")
+    def username_prefix(self) -> builtins.str:
+        return typing.cast(builtins.str, jsii.get(self, "usernamePrefix"))
+
+    @username_prefix.setter
+    def username_prefix(self, value: builtins.str) -> None:
+        if __debug__:
+            def stub(value: builtins.str) -> None:
+                ...
+            type_hints = typing.get_type_hints(stub)
+            check_type(argname="argument value", value=value, expected_type=type_hints["value"])
+        jsii.set(self, "usernamePrefix", value)
+
+    @builtins.property
+    @jsii.member(jsii_name="internalValue")
+    def internal_value(self) -> typing.Optional[EksIdentityProviderConfigOidc]:
+        return typing.cast(typing.Optional[EksIdentityProviderConfigOidc], jsii.get(self, "internalValue"))
+
+    @internal_value.setter
+    def internal_value(
+        self,
+        value: typing.Optional[EksIdentityProviderConfigOidc],
+    ) -> None:
+        if __debug__:
+            def stub(value: typing.Optional[EksIdentityProviderConfigOidc]) -> None:
+                ...
+            type_hints = typing.get_type_hints(stub)
+            check_type(argname="argument value", value=value, expected_type=type_hints["value"])
+        jsii.set(self, "internalValue", value)
+
+
+@jsii.data_type(
+    jsii_type="@cdktf/provider-aws.eksIdentityProviderConfig.EksIdentityProviderConfigTimeouts",
+    jsii_struct_bases=[],
+    name_mapping={"create": "create", "delete": "delete"},
+)
+class EksIdentityProviderConfigTimeouts:
+    def __init__(
+        self,
+        *,
+        create: typing.Optional[builtins.str] = None,
+        delete: typing.Optional[builtins.str] = None,
+    ) -> None:
+        '''
+        :param create: Docs at Terraform Registry: {@link https://www.terraform.io/docs/providers/aws/r/eks_identity_provider_config#create EksIdentityProviderConfig#create}.
+        :param delete: Docs at Terraform Registry: {@link https://www.terraform.io/docs/providers/aws/r/eks_identity_provider_config#delete EksIdentityProviderConfig#delete}.
+        '''
+        if __debug__:
+            def stub(
+                *,
+                create: typing.Optional[builtins.str] = None,
+                delete: typing.Optional[builtins.str] = None,
+            ) -> None:
+                ...
+            type_hints = typing.get_type_hints(stub)
+            check_type(argname="argument create", value=create, expected_type=type_hints["create"])
+            check_type(argname="argument delete", value=delete, expected_type=type_hints["delete"])
+        self._values: typing.Dict[str, typing.Any] = {}
+        if create is not None:
+            self._values["create"] = create
+        if delete is not None:
+            self._values["delete"] = delete
+
+    @builtins.property
+    def create(self) -> typing.Optional[builtins.str]:
+        '''Docs at Terraform Registry: {@link https://www.terraform.io/docs/providers/aws/r/eks_identity_provider_config#create EksIdentityProviderConfig#create}.'''
+        result = self._values.get("create")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    @builtins.property
+    def delete(self) -> typing.Optional[builtins.str]:
+        '''Docs at Terraform Registry: {@link https://www.terraform.io/docs/providers/aws/r/eks_identity_provider_config#delete EksIdentityProviderConfig#delete}.'''
+        result = self._values.get("delete")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "EksIdentityProviderConfigTimeouts(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+class EksIdentityProviderConfigTimeoutsOutputReference(
+    cdktf.ComplexObject,
+    metaclass=jsii.JSIIMeta,
+    jsii_type="@cdktf/provider-aws.eksIdentityProviderConfig.EksIdentityProviderConfigTimeoutsOutputReference",
+):
+    def __init__(
+        self,
+        terraform_resource: cdktf.IInterpolatingParent,
+        terraform_attribute: builtins.str,
+    ) -> None:
+        '''
+        :param terraform_resource: The parent resource.
+        :param terraform_attribute: The attribute on the parent resource this class is referencing.
+        '''
+        if __debug__:
+            def stub(
+                terraform_resource: cdktf.IInterpolatingParent,
+                terraform_attribute: builtins.str,
+            ) -> None:
+                ...
+            type_hints = typing.get_type_hints(stub)
+            check_type(argname="argument terraform_resource", value=terraform_resource, expected_type=type_hints["terraform_resource"])
+            check_type(argname="argument terraform_attribute", value=terraform_attribute, expected_type=type_hints["terraform_attribute"])
+        jsii.create(self.__class__, self, [terraform_resource, terraform_attribute])
+
+    @jsii.member(jsii_name="resetCreate")
+    def reset_create(self) -> None:
+        return typing.cast(None, jsii.invoke(self, "resetCreate", []))
+
+    @jsii.member(jsii_name="resetDelete")
+    def reset_delete(self) -> None:
+        return typing.cast(None, jsii.invoke(self, "resetDelete", []))
+
+    @builtins.property
+    @jsii.member(jsii_name="createInput")
+    def create_input(self) -> typing.Optional[builtins.str]:
+        return typing.cast(typing.Optional[builtins.str], jsii.get(self, "createInput"))
+
+    @builtins.property
+    @jsii.member(jsii_name="deleteInput")
+    def delete_input(self) -> typing.Optional[builtins.str]:
+        return typing.cast(typing.Optional[builtins.str], jsii.get(self, "deleteInput"))
+
+    @builtins.property
+    @jsii.member(jsii_name="create")
+    def create(self) -> builtins.str:
+        return typing.cast(builtins.str, jsii.get(self, "create"))
+
+    @create.setter
+    def create(self, value: builtins.str) -> None:
+        if __debug__:
+            def stub(value: builtins.str) -> None:
+                ...
+            type_hints = typing.get_type_hints(stub)
+            check_type(argname="argument value", value=value, expected_type=type_hints["value"])
+        jsii.set(self, "create", value)
+
+    @builtins.property
+    @jsii.member(jsii_name="delete")
+    def delete(self) -> builtins.str:
+        return typing.cast(builtins.str, jsii.get(self, "delete"))
+
+    @delete.setter
+    def delete(self, value: builtins.str) -> None:
+        if __debug__:
+            def stub(value: builtins.str) -> None:
+                ...
+            type_hints = typing.get_type_hints(stub)
+            check_type(argname="argument value", value=value, expected_type=type_hints["value"])
+        jsii.set(self, "delete", value)
+
+    @builtins.property
+    @jsii.member(jsii_name="internalValue")
+    def internal_value(
+        self,
+    ) -> typing.Optional[typing.Union[EksIdentityProviderConfigTimeouts, cdktf.IResolvable]]:
+        return typing.cast(typing.Optional[typing.Union[EksIdentityProviderConfigTimeouts, cdktf.IResolvable]], jsii.get(self, "internalValue"))
+
+    @internal_value.setter
+    def internal_value(
+        self,
+        value: typing.Optional[typing.Union[EksIdentityProviderConfigTimeouts, cdktf.IResolvable]],
+    ) -> None:
+        if __debug__:
+            def stub(
+                value: typing.Optional[typing.Union[EksIdentityProviderConfigTimeouts, cdktf.IResolvable]],
+            ) -> None:
+                ...
+            type_hints = typing.get_type_hints(stub)
+            check_type(argname="argument value", value=value, expected_type=type_hints["value"])
+        jsii.set(self, "internalValue", value)
+
+
+__all__ = [
+    "EksIdentityProviderConfig",
+    "EksIdentityProviderConfigConfig",
+    "EksIdentityProviderConfigOidc",
+    "EksIdentityProviderConfigOidcOutputReference",
+    "EksIdentityProviderConfigTimeouts",
+    "EksIdentityProviderConfigTimeoutsOutputReference",
+]
+
+publication.publish()
