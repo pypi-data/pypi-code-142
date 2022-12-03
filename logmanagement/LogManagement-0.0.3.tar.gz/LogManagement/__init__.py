@@ -1,0 +1,1 @@
+from LogManagement.PyLogManagement import os_commands_regex, show_last_log
