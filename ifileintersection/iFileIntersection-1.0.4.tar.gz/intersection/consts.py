@@ -1,0 +1,2 @@
+# COMMON
+NEW_LINE_CHARACTER = "\n"
