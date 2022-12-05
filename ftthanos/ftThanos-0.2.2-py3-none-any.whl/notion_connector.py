@@ -1,0 +1,312 @@
+import requests, os, json, time
+from ftThanos.notion_get_properties import *
+from ftThanos.notion_update_properties import *
+from ftThanos.log import *
+
+class notion_connector:
+
+###############
+# Main fonction
+###############
+	def __init__(self, **kwargs):
+		env = self.dot_env_parser()
+		TOKEN = env['TOKEN']
+		self.head = {
+		"Accept": "application/json",
+		"Authorization": "Bearer " + TOKEN,
+		"Content-Type": "application/json",
+		"Notion-Version": "2022-06-28"
+		}
+		self.url = 'https://api.notion.com/v1'
+		self.all_users = (json.loads(requests.get(self.url + '/users', headers=self.head).text))['results']
+		self.update = update_properties(users_list=self.all_users)
+		self.verbose = True
+		message("NOTION :: Ready to use.")
+
+#############################################
+# Helper présentant les différentes commandes
+#############################################
+	def helper(self):
+		print('[NOTION CONNECTOR] All function available :')
+		print("\t- \"put_in_file([data],[*name])\" -> Will put the data in file, if name param was given, file will "
+			  "take the name, else file will be name output.json.")
+		print("\t- \"getDb(dbId)\" -> Activate verbose.")
+		print("\t- \"updateDb(pageId, data)\" -> Activate verbose.")
+		print("\t- \"createDb(parentId)\" -> Activate verbose.")
+		print("\t- \"addPageDb(dbId, name)\" -> Activate verbose.")
+		print("\t- \"getIdLine(elem)\" -> Activate verbose.")
+		print("\t- \"getProperties(elem)\" -> Activate verbose.")
+		print("\t- \"updateProperties(elem)\" -> Activate verbose.")
+		print("\t- \"getAllUsers()\" -> Activate verbose.")
+		print("\t- \"verbose()\" -> Activate verbose.")
+		print("\t- \"unverbose()\" -> Deactivate verbose.")
+
+###################################
+# Créateur de .json avec de la data
+###################################
+	def put_in_file(self, data, *args):
+		"""
+		Take a dict object and put it in notion_output.json.\n
+		If name of destination file given, data was put in destination file .json
+		:param data: Dict object
+		:param args: Name of destination file
+		:return: None
+		"""
+		to_write = json.dumps(data, indent=4, sort_keys=True)
+		if len(args) > 0:
+			name = 'notion_' + args[0]
+		else:
+			name = 'notion_output.json'
+		if os.path.exists(name):
+			os.remove(name)
+		output = open(name, 'w')
+		for line in to_write:
+			output.write(line)
+		message(f"NOTION ::  Data was put in {name}.")
+
+################
+# Parser de .env
+################
+	@staticmethod
+	def dot_env_parser(self):
+		"""
+		Parse .env
+		:param: None
+		:return: return dict object with 'TOKEN'
+		"""
+		ret = {}
+		try :
+			with open ('.env', 'r') as file:
+				for line in file:
+					lst = line.split('=')
+					if len(lst) != 2:
+						continue
+					ret[lst[0]] = lst[1][:-1]
+		except IOError:
+			exit(critical('NOTION :: No .env detected.'))
+		if not 'TOKEN' in ret:
+			exit(critical('NOTION :: Wrong parameters in .env, you should put in your file:\nTOKEN=[Your notion token]'))
+		return ret
+
+###############################
+# Utilisation sur les databases
+###############################
+	def getDb(self, dbId):
+		"""
+		Get a Notion Database and return it format for easily work.
+		:param dbId: ID of Notion DB you want to get.
+		:return: Pages of the DB with properties format.
+		"""
+		url = self.url + '/databases/' + dbId + '/query'
+		body = {
+			"sorts": [],
+			"page_size": 100
+		}
+		data = []
+		end_reply = {"next_cursor" : None}
+		try:
+			while (True):
+				if end_reply['next_cursor'] is not None:
+					if end_reply['has_more'] == True:
+							body = {"sorts" : [],
+									"start_cursor" : end_reply['next_cursor']
+									}
+				reply = requests.post(url, data=json.dumps(body), headers=self.head)
+				reply.raise_for_status()
+				end_reply = json.loads(reply.text)
+				data += end_reply['results']
+				if end_reply['next_cursor'] is None:
+					break
+		except requests.exceptions.HTTPError as err:
+			self.put_in_file(json.loads(reply.text), 'error.json')
+			error('NOTION :: ' + str(err) + ' on POST ' + url)
+			return None
+		success(f'NOTION :: GET on DB {dbId}')
+		ret = []
+		for line in data:
+			data_line = {
+				'page_id' : line['id'],
+				'properties' : {}
+			}
+			for i in line['properties'].items():
+				if i[1]['type'] == 'title':
+					data_line['title'] = self.getProperties(i[1])['value']
+				data_line['properties'][i[0]] = self.getProperties(i[1])
+			ret.append(data_line)
+		success(f'NOTION :: Dd {dbId} formatted')
+		return ret
+
+#################################################
+# Search title in db and return it if exist, else return None
+#################################################
+	def getTitle(self, db, title):
+		"""
+		Take a database format and search a given title. If title was found, return line, else return None
+		:param db: DB format from getDb()
+		:param title: Title you want to qwery in Database
+		:return: title in DB return page or None
+		"""
+		for line in db:
+			if 'title' in line.keys():
+				if line['title'] == title:
+					return line
+		return None
+
+#################################################
+# Permet de mettre à jour une des lignes de la db
+#################################################
+	def updatePageProperties(self, pageId, properties):
+		"""
+		Update a page with properties who are given in parameters.
+		:param pageId: ID's page you want to update.
+		:param properties: Properties for update page.
+		:return: return reply.
+		"""
+		data = {'properties': {}}
+		i = False
+		for i in properties.items():
+			data['properties'][i[0]] = self.updateProperties(i[1])
+			if data['properties'][i[0]] == None:
+				del data['properties'][i[0]]
+				continue
+			i = True
+		if not i:
+			return
+		url = self.url + '/pages/' + pageId
+		try :
+			reply = requests.patch(url, headers=self.head, data=json.dumps(data))
+			reply.raise_for_status()
+			success(f'NOTION :: PATCH on page {pageId} - update properties')
+		except requests.exceptions.HTTPError as err:
+			self.put_in_file(json.loads(reply.text), 'error.json')
+			error('NOTION :: ' + str(err) + f' PATCH on page {pageId} - - update properties')
+		return json.loads(reply.text)
+
+##################################
+# Créé une nouvelle base de donnée
+##################################
+	def createDb(self, parentId):
+		"""
+		Create DB.
+		:param parentId: Place where you want to create DB.
+		:return: Return Data of db.
+		"""
+		url = self.url + '/blocks/' + parentId + '/children'
+		data = {
+			"children": [
+					{
+					"object": "block",
+					"type": "database_id",
+					"database_id": {
+						"title": "Unnamed"
+					},
+				}
+			]
+		}
+		try :
+			reply = requests.patch(url, hearders=self.head, data=json.dumps(data))
+			reply.raise_for_status()
+			success(f"NOTION :: PATCH on {parentId} - Creating DB")
+		except requests.exceptions.HTTPError as err:
+			self.put_in_file(json.loads(reply.text), 'error.json')
+			error(f'NOTION :: ' + str(err) + f' PATCH on {parentId} - Creating DB')
+		return json.loads(reply.text)
+
+###################################
+# Retourne le champs title de la db
+###################################
+	def getTitleProperties(self, db):
+		"""
+		For a given Db, return the name of column Title
+		:param db: DB where you want search the name of the title
+		:return: return name of title
+		"""
+		line = db[0]['properties']
+		for i in line.items():
+			if i[1]['properties']['type'] == 'title':
+				return i[0]
+
+############################################################################
+# Rajoute une ligne à la base de donnée, avec pour title le nom mis en param
+############################################################################
+	def addPageDb(self, dbId, name):
+		"""
+		Add a page on a given DB
+		:param dbId: DB where you want to add a page.
+		:param name: Name of title for new page.
+		:return: All the line format
+		"""
+		title = self.getTitleProperties(self.getDb(dbId))
+		url = self.url + '/pages'
+		data = {
+			"parent": { "type": "database_id",
+						"database_id": dbId },
+			"properties": {
+				title: {
+					"title": [
+						{
+							"text": {
+								"content": name
+							}
+						}
+					]
+				},
+			}
+		}
+		try :
+			reply = requests.post(url, headers=self.head, data=json.dumps(data))
+			reply.raise_for_status()
+		except requests.exceptions.HTTPError as err:
+			self.put_in_file(json.loads(reply.text), 'error.json')
+			print(self.RED + 'NOTION :: ' + str(err) + f' POST on {dbId} - Creating page {name}')
+		success(f"NOTION :: POST on {dbId} - Creating page {name}")
+		line = json.loads(reply.text)
+		data_line = {
+			'page_id' : line['id'],
+			'properties' : {}
+		}
+		for i in line['properties'].items():
+			if i[1]['type'] == 'title':
+				data_line['title'] = self.getProperties(i[1])['value']
+			data_line['properties'][i[0]] = self.getProperties(i[1])
+		return data_line
+
+#############################################
+# Récupère la l'id de la ligne de la Database
+#############################################
+	def getIdLine(self, elem):
+		return elem['id']
+
+#####################################################
+# Récupère la fonction pour avoir un obj de propriété
+#####################################################
+	def getProperties(self, elem):
+		return get_properties(elem)
+
+##################################################
+# Met à jour une propriété avec les elements voulu
+##################################################
+	def updateProperties(self, elem):
+		return self.update.update_properties(elem)
+
+##################################################
+# Recupère tout les utilisateurs de l'access token
+##################################################
+	def getAllUsers(self):
+		"""
+		Get all user of the space.
+		:return: return user data.
+		"""
+		url = self.url + '/users'
+		ret = []
+		try :
+			reply = requests.get(url, headers=self.head)
+			reply.raise_for_status()
+			end_reply = json.loads(reply.text)
+			ret += end_reply['results']
+			success(f"NOTION :: Success GET on {url} - Get all users")
+		except requests.exceptions.HTTPError as err:
+			self.put_in_file(json.loads(reply.text), 'error.json')
+			error('NOTION :: ' + str(err) + f'on GET {url} - Get all users')
+		return ret
+
