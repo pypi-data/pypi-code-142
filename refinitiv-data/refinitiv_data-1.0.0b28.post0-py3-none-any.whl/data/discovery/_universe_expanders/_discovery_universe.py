@@ -1,0 +1,49 @@
+from ..._core.session import get_default
+from ..._errors import RDError
+from ..._fin_coder_layer import get_adc_data
+from ..._tools import cached_property
+from ._chain import default_error_message
+from ._universe_expander import UniverseExpander
+
+
+def update_universe(raw, _universe):
+    index = 0  # instrument
+    data = raw.get("data")
+    if data and all(isinstance(i[index], str) for i in data):
+        universe = [i[index] for i in data]
+    else:
+        universe = _universe
+    return universe
+
+
+def get_universe(expression):
+    session = get_default()
+    logger = session.logger()
+    adc_raw, _ = get_adc_data(
+        params={
+            "universe": expression,
+            "fields": "TR.RIC",
+        },
+        logger=logger,
+        raise_if_error=True,
+    )
+    return update_universe(
+        adc_raw,
+        None,
+    )
+
+
+class DiscoveryUniverse(UniverseExpander):
+    def __init__(self, expression):
+        self._expression = expression
+
+    @property
+    def expression(self):
+        return self._expression
+
+    @cached_property
+    def _universe(self):
+        universe = get_universe(self._expression)
+        if not universe:
+            raise RDError(-1, default_error_message)
+        return universe
