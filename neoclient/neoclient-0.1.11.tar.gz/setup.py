@@ -1,0 +1,33 @@
+# -*- coding: utf-8 -*-
+from setuptools import setup
+
+packages = \
+['neoclient']
+
+package_data = \
+{'': ['*']}
+
+install_requires = \
+['httpx>=0.23.0,<0.24.0',
+ 'mediate>=0.1.7,<0.2.0',
+ 'pydantic>=1.9.2,<2.0.0',
+ 'typing-extensions>=4.3.0,<5.0.0']
+
+setup_kwargs = {
+    'name': 'neoclient',
+    'version': '0.1.11',
+    'description': 'Fast API Clients for Python',
+    'long_description': '# neoclient\n:rocket: Fast API Clients for Python\n\n## Installation\n```console\npip install git+https://github.com/tombulled/neoclient@main\n```\n\n## Documentation\n### Introduction\nThe simplest `neoclient` file could look like this:\n```python\nfrom neoclient import get\n\n@get("https://httpbin.org/ip")\ndef ip():\n    ...\n```\n```python\n>>> ip()\n{\'origin\': \'1.2.3.4\'}\n```\n\nHowever, it\'s almost always better to create a `NeoClient` instance for easy reusability:\n```python\nfrom neoclient import NeoClient\n\nclient = NeoClient("https://httpbin.org/")\n\n@client.get("/ip")\ndef ip():\n    ...\n```\n```python\n>>> ip()\n{\'origin\': \'1.2.3.4\'}\n```\n\n### Path Parameters\nYou can declare path parameters with the same syntax used by Python format strings:\n```python\nfrom neoclient import NeoClient\n\nclient = NeoClient("https://httpbin.org/")\n\n@client.get("/base64/{value}")\ndef b64decode(value):\n    ...\n```\n```python\n>>> b64decode("RmFzdENsaWVudCBpcyBhd2Vzb21lIQ==")\n\'NeoClient is awesome!\'\n```\n\n#### Path parameters with types\nYou can declare the type of a path parameter in the function using standard Python type annotations:\n```python\nfrom neoclient import NeoClient\n\nclient = NeoClient("https://httpbin.org/")\n\n@client.get("/base64/{value}")\ndef b64decode(value: str):\n    ...\n```\nIn this case, `value` is declared to be of type `str`.\n\n#### Explicit path parameters\nIf you prefer explicitly stating that a parameter is a path parameter, you can use the `Path` parameter function:\n```python\nfrom neoclient import NeoClient, Path\n\nclient = NeoClient("https://httpbin.org/")\n\n@client.get("/base64/{value}")\ndef b64decode(value: str = Path()):\n    ...\n```\nThis approach comes with added benefits, such as being able to specify validation constraints.\n```python\nfrom neoclient import NeoClient, Path\n\nclient = NeoClient("https://httpbin.org/")\n\n@client.get("/base64/{value}")\ndef b64decode(value: str = Path(default="SGVsbG8sIFdvcmxkIQ==")):\n    ...\n```\n```python\n>>> b64decode()\n\'Hello, World!\'\n```\n\n#### Missing path parameters\nNeoClient will throw an error if you specify a path parameter in the request path, however do not create a function parameter for it. For example:\n```python\nfrom neoclient import NeoClient\n\nclient = NeoClient("https://httpbin.org/")\n\n@client.get("/base64/{value}")\ndef b64decode():\n    ...\n```\n```python\n>>> b64decode()\nIncompatiblePathParameters: Expected (\'value\',), got ()\n```\n\n#### Pre-defined Values\nIf you have a path operation that receives a path parameter, but you want the possible valid path parameter values to be predefined, you can use a standard Python Enum.\n```python\nfrom enum import Enum\nfrom neoclient import NeoClient\n\nclass Name(str, Enum):\n    def __str__(self):\n        return self.value\n        \n    BOB = "bob"\n    SALLY = "sally"\n\nclient = NeoClient("https://httpbin.org/")\n\n@client.get("/anything/{name}")\ndef anything(name: Name):\n    ...\n```\n```python\n>>> anything(Name.BOB)\n{\n    \'args\': {},\n    \'data\': \'\',\n    \'files\': {},\n    \'form\': {},\n    \'headers\': {\n        \'Accept\': \'*/*\',\n        \'Accept-Encoding\': \'gzip, deflate, br\',\n        \'Host\': \'httpbin.org\',\n        \'User-Agent\': \'neoclient/0.1.10\'\n    },\n    \'json\': None,\n    \'method\': \'GET\',\n    \'origin\': \'1.2.3.4\',\n    \'url\': \'https://httpbin.org/anything/bob\'\n}\n```\n\n#### Path parameters containing paths\nLet\'s say you have a path operation with a path `/do/{commands}`, where you expect `commands` to accept an arbitrary number of arguments which should be used as path segments. To achieve this, you can pass the path parameter a sequence:\n```python\nfrom typing import Sequence\nfrom neoclient import NeoClient\n\nclient = NeoClient("https://httpbin.org/")\n\n@client.get("/anything/{commands}")\ndef do(commands: Sequence[str]):\n    ...\n```\n```python\n>>> do(["turn", "left", "then", "turn", "right"])\n{\n    \'args\': {},\n    \'data\': \'\',\n    \'files\': {},\n    \'form\': {},\n    \'headers\': {\n        \'Accept\': \'*/*\',\n        \'Accept-Encoding\': \'gzip, deflate, br\',\n        \'Host\': \'httpbin.org\',\n        \'User-Agent\': \'neoclient/0.1.10\'\n    },\n    \'json\': None,\n    \'method\': \'GET\',\n    \'origin\': \'1.2.3.4\',\n    \'url\': \'https://httpbin.org/anything/turn/left/then/turn/right\'\n}\n```\n\n### Query Parameters\nWhen you declare other function parameters that are not part of the path parameters, they are automatically interpreted as "query" parameters.\n```python\nfrom neoclient import NeoClient\n\napp = NeoClient("https://httpbin.org/")\n\n@app.get("/get")\ndef get(message: str):\n    ...\n```\n```python\n>>> get("Hello, World!")\n{\n    \'args\': {\'message\': \'Hello, World!\'},\n    \'headers\': {\n        \'Accept\': \'*/*\',\n        \'Accept-Encoding\': \'gzip, deflate, br\',\n        \'Host\': \'httpbin.org\',\n        \'User-Agent\': \'neoclient/0.1.10\'\n    },\n    \'origin\': \'1.2.3.4\',\n    \'url\': \'https://httpbin.org/get?message=Hello%2C+World!\'\n}\n```\n\n## Advanced User Guide\nNeoClient can turn your HTTP API into a Python protocol.\n```python\nfrom neoclient import NeoClient, get\nfrom typing import Protocol\n\nclass Httpbin(Protocol):\n    @get("/get")\n    def get(self, message: str) -> dict:\n        ...\n\nhttpbin: Httpbin = NeoClient("https://httpbin.org/").create(Httpbin)  # type: ignore\n```\n```python\n>>> httpbin.get("Hello, World!")\n{\n    \'args\': {\'message\': \'Hello, World!\'},\n    \'headers\': {\n        \'Accept\': \'*/*\',\n        \'Accept-Encoding\': \'gzip, deflate, br\',\n        \'Host\': \'httpbin.org\',\n        \'User-Agent\': \'neoclient/0.1.10\'\n    },\n    \'origin\': \'1.2.3.4\',\n    \'url\': \'https://httpbin.org/get?message=Hello%2C+World!\'\n}\n```',
+    'author': 'Tom Bulled',
+    'author_email': '26026015+tombulled@users.noreply.github.com',
+    'maintainer': 'None',
+    'maintainer_email': 'None',
+    'url': 'https://github.com/tombulled/neoclient',
+    'packages': packages,
+    'package_data': package_data,
+    'install_requires': install_requires,
+    'python_requires': '>=3.8,<4.0',
+}
+
+
+setup(**setup_kwargs)
