@@ -1,0 +1,5 @@
+""" check_tftp """
+__author__ = "Christopher Peterson"
+__version__ = "0.3.1"
+__title__ = "check_tftp"
+__license__ = "MIT"
