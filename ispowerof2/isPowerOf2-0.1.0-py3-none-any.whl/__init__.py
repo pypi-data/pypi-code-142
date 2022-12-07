@@ -1,0 +1,1 @@
+from isPowerOf2.powerOf2 import PowerOf2
