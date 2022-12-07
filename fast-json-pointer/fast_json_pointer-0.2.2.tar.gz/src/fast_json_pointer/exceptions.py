@@ -1,0 +1,2 @@
+class JsonPointerException(Exception):
+    pass
