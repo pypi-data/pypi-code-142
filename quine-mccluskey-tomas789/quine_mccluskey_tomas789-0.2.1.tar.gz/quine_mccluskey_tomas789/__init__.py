@@ -1,0 +1,1 @@
+from .qm import QuineMcCluskey
